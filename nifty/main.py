@@ -34,8 +34,19 @@ def freq(iterable):
     return freq_table
 
 
-def dwnld(url, file="a.zip"):
+def dwnld_zip(url, file="a.zip"):
     data = r.urlopen(url)
     f = open(file, "wb")
     f.write(data.read())
     print(url + " data written to file:" + os.getcwd() + "/" + file)
+
+
+def word_in_list(data, word):
+    """Checks if there is a string containing the word supplied and
+    returns the list of those words.
+    """
+    if not hasattr(data, "__iter__"):
+        print("Not a list/tuple!")
+        return
+
+    return [i for i in data if(word in i)]
