@@ -1,15 +1,14 @@
 import os
-from urllib import request as r
 
-# run1 = lambda x: exec(open(x).read())
+from pathlib import Path
 
 
-# def run2(x):
-#     exec(open(x).read(), locals())
+Path.ls = lambda x: list(x.iterdir())
 
 
 def shell(cmd):
-    """Runs any shell command.
+    """
+    Runs any shell command.
     """
     p = os.popen(cmd)
     res = p.readlines()
@@ -18,20 +17,16 @@ def shell(cmd):
     return res
 
 
-def ls(flag=""):
-    """Gives file listing. "flag" is the linux ls command options.
+def ls(path=""):
     """
-    return shell("ls" + flag)
-
-
-def freq(iterable):
-    """Frequency analysis of any hashable iterable.
+    Gives file listing.
     """
-    freq_table = {}
-    for i in iterable:
-        freq_table[i] = freq_table.get(i, 0) + 1
+    from pathlib import Path
 
-    return freq_table
+    if path:
+        return Path(path).ls()
+    else:
+        return Path("./").ls()
 
 
 def dwnld_zip(url, file="a.zip"):
@@ -39,14 +34,3 @@ def dwnld_zip(url, file="a.zip"):
     f = open(file, "wb")
     f.write(data.read())
     print(url + " data written to file:" + os.getcwd() + "/" + file)
-
-
-def word_in_list(data, word):
-    """Checks if there is a string containing the word supplied and
-    returns the list of those words.
-    """
-    if not hasattr(data, "__iter__"):
-        print("Not a list/tuple!")
-        return
-
-    return [i for i in data if(word in i)]
