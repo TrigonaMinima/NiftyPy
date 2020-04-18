@@ -21,13 +21,15 @@ def ls(path=""):
     """
     Gives file listing.
     """
-    from pathlib import Path
+    if not path:
+        path = "./"
 
-    if path:
-        return Path(path).ls()
-    else:
-        return Path("./").ls()
+    if not isinstance(path, Path):
+        path = Path(path)
 
+    paths = path.ls()
+    print("\n".join(sorted([i.as_posix() for i in paths])))
+    return paths
 
 def dwnld_zip(url, file="a.zip"):
     data = r.urlopen(url)
