@@ -1,5 +1,3 @@
-import os
-
 from pathlib import Path
 
 
@@ -10,6 +8,8 @@ def shell(cmd):
     """
     Runs any shell command.
     """
+    import os
+
     p = os.popen(cmd)
     res = p.readlines()
     p.close()
